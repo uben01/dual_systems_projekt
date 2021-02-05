@@ -1,0 +1,25 @@
+#root{
+    width: 50%;
+    margin: 5px auto;
+    padding: 5px;
+    border-radius: 1em;
+}
+
+#menu{
+    text-align: center;
+}
+#menu a{
+    margin: 0 15px;
+}
+
+#invoiceTable, #createInvoiceItemList, #showAlert{
+    margin: 10px 0;
+}
+
+#emptyListPlaceholder{
+    text-align: center;
+}
+.createButtons input{
+    float: right;
+    margin: 10px;
+}
