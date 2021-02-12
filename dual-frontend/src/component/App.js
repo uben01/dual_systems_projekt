@@ -12,10 +12,17 @@ class App extends Component {
     constructor() {
         super();
         this.state = {invoices: []};
+        this.endpoint = "http://localhost:8080/invoices";
+
+        this.updateList = this.updateList.bind(this);
     }
 
     componentDidMount() {
-        fetch('http://localhost:8080/invoices')
+        this.updateList();
+    }
+
+    updateList(){
+        fetch(this.endpoint)
             .then(response => response.json())
             .then(json => this.setState({invoices: json}));
     }
@@ -27,7 +34,7 @@ class App extends Component {
                     <Menu />
                     <Switch>
                         <Route path="/invoice/:id"><Invoice invoiceList={this.state.invoices} /></Route>
-                        <Route path="/create"><CreateInvoice /></Route>
+                        <Route path="/create"><CreateInvoice endpoint={this.endpoint} updateList={this.updateList} /></Route>
                         <Route path="/"><ListInvoice invoiceList={this.state.invoices} /></Route>
                     </Switch>
 
