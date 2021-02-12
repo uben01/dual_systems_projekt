@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { precise } from "./utils";
+import { formatEUR, formatHUF, precise } from "./utils";
 
 export function Invoice(props) {
     let {id} = useParams();
@@ -49,8 +49,8 @@ export function Invoice(props) {
                             <td>{invoice.issueDate}</td>
                             <td>{invoice.dueDate}</td>
                             <td>{invoice.comment}</td>
-                            <td>{invoice.totalHUF} Ft</td>
-                            <td>{precise(invoice.totalEUR)} €</td>
+                            <td>{formatHUF(invoice.totalHUF)}</td>
+                            <td>{formatEUR(invoice.totalEUR)}</td>
                         </tr>
 
                     }
@@ -73,8 +73,8 @@ export function Invoice(props) {
                                 <td>{item.productName}</td>
                                 <td>{item.unitPrice} Ft</td>
                                 <td>{item.quantity}</td>
-                                <td>{item.totalHUFPrice} Ft</td>
-                                <td>{precise(item.totalEURPrice)} €</td>
+                                <td>{formatHUF(item.totalHUFPrice)}</td>
+                                <td>{formatEUR(item.totalEURPrice)}</td>
                             </tr>
                         ))
                     }

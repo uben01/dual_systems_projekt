@@ -1,12 +1,12 @@
 import { Component } from "react";
 import Modal from 'react-modal';
 import CreateItem from "./CreateItem";
-import { precise } from "./utils";
+import { formatEUR, formatHUF } from "./utils";
 
 class CreateInvoice extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             items: [],
             showModal: false,
@@ -75,7 +75,7 @@ class CreateInvoice extends Component {
         };
 
         var xhr = new XMLHttpRequest();
-        var url = "http://localhost:8080/invoices";
+        var url = this.props.endpoint;
 
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -85,6 +85,8 @@ class CreateInvoice extends Component {
                 this.setState({
                     showResult: json.result
                 });
+
+                this.props.updateList();
             }
         }.bind(this);
         var data = JSON.stringify(jsonPackage);
@@ -99,7 +101,6 @@ class CreateInvoice extends Component {
     }
 
     onChangeIssueDate(issueDate) {
-        console.log(issueDate);
         this.setState({
             issueDate: issueDate,
             validIssueDate: issueDate != "",
@@ -189,8 +190,8 @@ class CreateInvoice extends Component {
                                         <td>{item.productName}</td>
                                         <td>{item.unitPrice}</td>
                                         <td>{item.quantity}</td>
-                                        <td>{item.totalPriceHUF} Ft</td>
-                                        <td>{precise(item.totalPriceEUR)} €</td>
+                                        <td>{formatHUF(item.totalPriceHUF)}</td>
+                                        <td>{formatEUR(item.totalPriceEUR)}</td>
                                     </tr>
                                 )))
 
@@ -199,8 +200,8 @@ class CreateInvoice extends Component {
                         <tfoot>
                             <tr>
                                 <td colSpan={3} />
-                                <td>{this.state.totalHUF} Ft</td>
-                                <td>{precise(this.state.totalEUR)} €</td>
+                                <td>{formatHUF(this.state.totalHUF)}</td>
+                                <td>{formatEUR(this.state.totalEUR)}</td>
                             </tr>
                         </tfoot>
                     </table>
