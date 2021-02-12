@@ -19,8 +19,8 @@ public class Item extends AbstractEntity {
     @Column(name = "QUANTITY", nullable = false)
     private int quantity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "invoice_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "invoice_id")
     @JsonIgnore
     Invoice invoice;
 

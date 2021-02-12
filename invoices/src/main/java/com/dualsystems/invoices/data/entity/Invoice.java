@@ -3,7 +3,7 @@ package com.dualsystems.invoices.data.entity;
 import com.dualsystems.invoices.data.AbstractEntity;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 

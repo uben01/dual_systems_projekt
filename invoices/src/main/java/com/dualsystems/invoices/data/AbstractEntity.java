@@ -15,16 +15,23 @@ public abstract class AbstractEntity {
     protected String id;
 
     public AbstractEntity(String id) {
+        if(id == null || id.equals("0")){
+            id = generateUniqueId();
+        }
         this.id = id;
     }
 
     public AbstractEntity() {
+        this.id = generateUniqueId();
+    }
+
+    public static String generateUniqueId(){
         UUID uuid = UUID.randomUUID();
         ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
         bb.putLong(uuid.getMostSignificantBits());
         bb.putLong(uuid.getLeastSignificantBits());
 
-        this.id = Base64.encodeBase64URLSafeString(bb.array());
+        return Base64.encodeBase64URLSafeString(bb.array());
     }
 
     public String getId() {

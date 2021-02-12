@@ -19,15 +19,4 @@ public class ItemService {
         this.itemRepository = itemRepository;
         this.invoiceRepository = invoiceRepository;
     }
-
-    public void createItem(Invoice invoice, HashMap<String, String> objectMap) {
-        Item item = new Item();
-
-        item.setInvoice(invoice);
-        item.setProductName(objectMap.get("productName"));
-        item.setQuantity(Integer.parseUnsignedInt(objectMap.get("quantity")));
-        item.setUnitPrice(Integer.parseUnsignedInt(objectMap.get("unitPrice")));
-
-        itemRepository.save(item);
-    }
 }
