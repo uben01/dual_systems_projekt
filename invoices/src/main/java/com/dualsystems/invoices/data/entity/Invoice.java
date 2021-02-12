@@ -14,9 +14,11 @@ public class Invoice extends AbstractEntity {
     @Column(name = "CUSTOMERNAME", nullable = false)
     private String customerName;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "ISSUEDATE", nullable = false)
     private Date issueDate;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "DUEDATE", nullable = false)
     private Date dueDate;
 
@@ -29,10 +31,10 @@ public class Invoice extends AbstractEntity {
     private List<Item> items = new ArrayList<>();
 
     @Transient
-    private int totalHUF;
+    private Integer totalHUF;
 
     @Transient
-    private int totalEUR;
+    private Double totalEUR;
 
     public String getCustomerName() {
         return customerName;
@@ -74,21 +76,25 @@ public class Invoice extends AbstractEntity {
         this.items = items;
     }
 
-    public int getTotalHUF() {
-        int total = 0;
-        for (Item tempItem : items) {
-            total += tempItem.getTotalHUFPrice();
+    public Integer getTotalHUF() {
+        if (totalHUF == null) {
+            setTotalHUF();
         }
-
-        return total;
+        return totalHUF;
     }
 
-    public double getTotalEUR() {
-        double total = 0;
-        for (Item tempItem : items) {
-            total += tempItem.getTotalEURPrice();
+    public void setTotalHUF() {
+        if (totalEUR == null) {
+            setTotalEUR();
         }
+        totalHUF = items.stream().map(Item::getTotalHUFPrice).reduce(0, Integer::sum);
+    }
 
-        return total;
+    public Double getTotalEUR() {
+        return totalEUR;
+    }
+
+    public void setTotalEUR() {
+        totalEUR = items.stream().map(Item::getTotalEURPrice).reduce(0.0, Double::sum);
     }
 }
