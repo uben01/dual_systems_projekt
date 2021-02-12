@@ -1,7 +1,7 @@
 import { Component } from "react";
 import Modal from 'react-modal';
 import CreateItem from "./CreateItem";
-import { formatEUR, formatHUF } from "./utils";
+import { precise } from "./utils";
 
 class CreateInvoice extends Component {
 
@@ -91,6 +91,8 @@ class CreateInvoice extends Component {
         }.bind(this);
         var data = JSON.stringify(jsonPackage);
         xhr.send(data);
+
+
     }
 
     onChangeCustomerName(customerName) {
@@ -101,6 +103,7 @@ class CreateInvoice extends Component {
     }
 
     onChangeIssueDate(issueDate) {
+        console.log(issueDate);
         this.setState({
             issueDate: issueDate,
             validIssueDate: issueDate != "",
@@ -190,8 +193,8 @@ class CreateInvoice extends Component {
                                         <td>{item.productName}</td>
                                         <td>{item.unitPrice}</td>
                                         <td>{item.quantity}</td>
-                                        <td>{formatHUF(item.totalPriceHUF)}</td>
-                                        <td>{formatEUR(item.totalPriceEUR)}</td>
+                                        <td>{item.totalPriceHUF} Ft</td>
+                                        <td>{precise(item.totalPriceEUR)} €</td>
                                     </tr>
                                 )))
 
@@ -200,8 +203,8 @@ class CreateInvoice extends Component {
                         <tfoot>
                             <tr>
                                 <td colSpan={3} />
-                                <td>{formatHUF(this.state.totalHUF)}</td>
-                                <td>{formatEUR(this.state.totalEUR)}</td>
+                                <td>{this.state.totalHUF} Ft</td>
+                                <td>{precise(this.state.totalEUR)} €</td>
                             </tr>
                         </tfoot>
                     </table>

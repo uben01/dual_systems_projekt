@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { formatEUR, formatHUF } from "./utils";
+import { precise } from "./utils";
 
 class CreateItem extends Component {
     constructor(props) {
@@ -62,11 +62,11 @@ class CreateItem extends Component {
                 </div>
                 <div>
                     <label>Total (HUF)</label>
-                    <div className="form-control" >{formatHUF(this.state.totalPriceHUF)}</div>
+                    <input disabled type="text" className="form-control" value={this.state.totalPriceHUF + " Ft"} />
                 </div>
                 <div>
                     <label>Total (EUR)</label>
-                    <div className="form-control" >{formatEUR(this.state.totalPriceEUR)}</div>
+                    <input disabled type="text" className="form-control" value={precise(this.state.totalPriceEUR) + " €"} />
                 </div>
                 <div className="createButtons">
                     <input className="btn btn-success" type="submit" value="Add"

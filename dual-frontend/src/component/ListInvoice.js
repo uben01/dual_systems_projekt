@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { formatEUR, formatHUF, precise } from "./utils";
+import { precise } from "./utils";
 
 export function ListInvoice(props) {
     return (
@@ -27,8 +27,8 @@ export function ListInvoice(props) {
                             <td>{item.issueDate}</td>
                             <td>{item.dueDate}</td>
                             <td>{item.comment}</td>
-                            <td>{formatHUF(item.totalHUF)}</td>
-                            <td>{formatEUR(item.totalEUR)}</td>
+                            <td>{item.totalHUF} Ft</td>
+                            <td>{precise(item.totalEUR)} €</td>
                         </tr>
                     ))
                 }
